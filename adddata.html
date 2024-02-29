@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="" id="form1" enctype="multipart/form-data">
+        <!-- <label for="">name</label> -->
+        <!-- <input type="text" id="name" placeholder="name"> -->
+        <!-- <br> -->
+        <label for="">product type</label>
+        <select name="" id="ptype">
+            <option value="" disabled selected>select product</option>
+            <option value="cloth">cloths</option>
+            <option value="accessories">accessories</option>
+        </select>
+        <br>
+        <label for="">gender</label>
+        <select name="" id="gender">
+            <option value="male">male</option>
+            <option value="female">female</option>
+        </select>
+        <br>
+        <label for="">cloth type</label>
+        <select name="" id="ctype">
+            <option value="saree">saree</option>
+            <option value="punjabi dhoti">punjabi dhoti</option>
+            <option value="kurta">kurta</option>
+            <option value="lungi">lungi</option>
+            <option value="gamcha">gamcha</option>
+        </select>
+        <br>
+        <label for="">accessories type</label>
+        <select name="" id="atype">
+            <option value="head">head</option>
+            <option value="neck">neck</option>
+            <option value="nath">nath</option>
+            <option value="earing">earing</option>
+            <option value="bangle">bangle</option>
+            <option value="ratan chur">ratan chur</option>
+            <option value="nopur">nopur</option>
+        </select>
+        <br>
+        <label for="">product image</label>
+        <input type="file" id="image" accept="image/*">
+        <br>
+        <button type="submit">
+            submit
+        </button>
+    </form>
+
+    <script>
+        let form1 = document.querySelector('#form1')
+        let name = document.querySelector('#name')
+        let gender = document.querySelector('#gender')
+        let ptype = document.querySelector('#ptype')
+        let button = document.querySelector('button')
+        let ctype = document.querySelector('#ctype')
+        let atype = document.querySelector('#atype')
+        let image = document.querySelector('#image')
+
+        ctype.disabled = true
+        atype.disabled = true
+
+        ptype.onchange = () => {
+            // console.log(ptype)
+            if (ptype.value === 'cloth')
+                //  console.log("123")
+                ctype.disabled = false
+
+            if (ptype.value === 'accessories')
+                atype.disabled = false
+            // ctype.disabled = true
+
+        }
+
+        form1.onsubmit = async (e) => {
+            e.preventDefault()
+            // e.preventDefault()
+            // console.log(image.files[0])
+
+            const formData = new FormData();
+            // formData.append('name', name.value)
+            formData.append('gender', gender.value)
+            formData.append('ptype', ptype.value)
+            formData.append('ctype', ctype.value)
+            formData.append('atype', atype.value)
+            formData.append('image', image.files[0]);
+
+            const data = await fetch('http://localhost:8052/adddata', {
+                method: "POST",
+                // headers: {
+                //     "Content-Type": "application/json"
+                // },
+                body: formData
+                //  body:JSON.stringify({
+                //     name:name.value,
+                //     gender:gender.value,
+                //     ptype:ptype.value,
+                //     ctype:ctype.value,
+                //     atype:atype.value,
+                //     photos:image.files[0]
+
+                // })
+            })
+            const result = await data.json()
+            console.log(result);
+
+
+
+        }
+
+    </script>
+</body>
+
+</html>
