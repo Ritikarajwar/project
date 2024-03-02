@@ -27,37 +27,24 @@
 
         const CloudName = 'da2oqj7qe'
         const malefolder = 'male'
+        const femalefolder = 'female'
 
         form.onsubmit = async (e) => {
             e.preventDefault()
 
-            let selectedgender = gender.value
-            div.innerHTML = ''
+            const data = await fetch ('http://localhost:8052/shop',{
+                method:"POST",
+                headers:{
+                    "COntent-Type":"application/json"
+                },
+                body: JSON.stringify({
+                     selectedgender : gender.value
+                })
+            })
+            const result = await data.json()
+            console.log(result)
 
-            let url;
-            if (selectedgender === 'Male') {
-                url = `https://res.cloudinary.com/${CloudName}/image/list/male.json`;
-            } else {
-                url = `https://res.cloudinary.com/${CloudName}/image/list/female.json`;
-            }
-
-            try {
-                const response = await fetch(url)
-                const data = await response.json()
-
-                console.log(data)
-                // data.resources.forEach(image => {
-                //     const imageUrl = 'https://res.cloudinary.com/${cloudName}/image/upload/${image.public_id}.${image.format}'
-                //     const img = document.createElement('img')
-                //     img.src = imageUrl;
-                //     imag.alt = public - id
-                //     div.appendChild(img)
-                // })
-            }
-            catch (error) {
-                console.error('Error fetching images:', error);
-            }
-
+            
             // const img = document.createElement('img')
             // img.src = "https://res.cloudinary.com/da2oqj7qe/image/upload/v1709218572/1_tsiwrn.jpg"
             // div.appendChild(img)
