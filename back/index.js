@@ -69,7 +69,7 @@ app.post('/shop', express.json(), (req, res) => {
             }
         })
     } else {
-        cloudinary.api.resources({ type: 'upload', prefix: 'female/' }, (error, result) => {
+        cloudinary.api.resources({ type: 'upload', prefix: 'female/' ,max_results: 30  }, (error, result) => {
             if (error) {
                 console.error('Error fetching images:', error);
             } else {
