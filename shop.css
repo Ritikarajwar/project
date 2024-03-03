@@ -4,3 +4,22 @@
     box-sizing: border-box;
 }
 
+#wrapper{
+    /* margin-top: 1%; */
+    height: 100vh;
+    padding: 1%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+/* #wrapper .products{
+    height: 300px;
+    width: 27%;
+}*/
+#wrapper .products image{
+    box-shadow: 1px 1px 6px 1px gray(147, 42, 42);
+    border-radius: 10px;
+    height: 90%;
+    width: 100%;
+} 
