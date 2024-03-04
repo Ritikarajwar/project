@@ -53,15 +53,10 @@ app.post('/shop', express.json(), (req, res) => {
 
     const CloudName = 'da2oqj7qe'
 
-    // if(selectedgender === 'Male'){
-    //     url = `https://res.cloudinary.com/${CloudName}/image/list/male.json`
-    //     console.log(url)
-    // }
-
-    // const cloudinary = require('cloudinary').v2;
+    
 
     if (selectedgender === 'Male') {
-        cloudinary.api.resources({ type: 'upload', prefix: 'male/' }, (error, result) => {
+        cloudinary.api.resources({ type: 'upload', prefix: 'male/kurta' }, (error, result) => {
             if (error) {
                 console.error('Error fetching images:', error);
             } else {
@@ -69,7 +64,7 @@ app.post('/shop', express.json(), (req, res) => {
             }
         })
     } else {
-        cloudinary.api.resources({ type: 'upload', prefix: 'female/' ,max_results: 30  }, (error, result) => {
+        cloudinary.api.resources({ type: 'upload', prefix: 'female/saree' ,max_results: 30  }, (error, result) => {
             if (error) {
                 console.error('Error fetching images:', error);
             } else {
@@ -77,12 +72,6 @@ app.post('/shop', express.json(), (req, res) => {
             }
         })
     }
-
-
-
-
-
-
 
 })
 

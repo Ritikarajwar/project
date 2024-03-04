@@ -12,12 +12,14 @@
 <body>
     <form action="">
         <!-- <input type="text" id="search"> -->
-        <select id="gender">
-            <!-- <option value="All">All</option> -->
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-        </select>
-        <button type="submit">search</button>
+        <div id="search-container">
+            <select id="gender">
+                <!-- <option value="All">All</option> -->
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+            <button type="submit">search</button>
+        </div>
         <div id="wrapper"></div>
     </form>
     <script>
@@ -34,38 +36,38 @@
         form.onsubmit = async (e) => {
             e.preventDefault()
 
-            const data = await fetch ('http://localhost:8052/shop',{
-                method:"POST",
-                headers:{
-                    "COntent-Type":"application/json"
+            const data = await fetch('http://localhost:8052/shop', {
+                method: "POST",
+                headers: {
+                    "COntent-Type": "application/json"
                 },
                 body: JSON.stringify({
-                     selectedgender : gender.value
+                    selectedgender: gender.value
                 })
             })
             const result = await data.json()
             console.log(result)
 
-            const imgdata =result.resources
+            const imgdata = result.resources
 
 
             try {
                 showimg()
-            }catch(error){
-                console.log('error fetching images :',error)
+            } catch (error) {
+                console.log('error fetching images :', error)
             }
 
 
-            function showimg(){
+            function showimg() {
                 console.log(imgdata)
-                for(let i = 0; i<imgdata.length; i++){
+                for (let i = 0; i < imgdata.length; i++) {
 
                     let div = document.createElement('div')
                     div.className = 'products'
-                    
+
                     let image = document.createElement('img')
                     image.src = imgdata[i].url
-                    
+
                     div.append(image)
                     wrapper.append(div)
                 }
