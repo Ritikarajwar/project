@@ -21,7 +21,7 @@ cloudinary.config({
 app.use(fileUpload({ useTempFiles: true }))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json());
-app.use(cors({ origin: "http://127.0.0.1:5500" }));
+app.use(cors({ origin: "http://127.0.0.1:5501" }));
 // app.use('/uploads', express.static('uploads'))
 
 
@@ -78,7 +78,8 @@ app.post('/shop', express.json(), (req, res) => {
 
 app.post('/newentry', express.json(), async (req, res) => {
     let { MobileNum, password } = req.body;
-
+    // console.log(req.body)
+    
     let data = await db.collection('loginuser').find().toArray();
     let exist = false;
 
@@ -100,6 +101,7 @@ app.post('/newentry', express.json(), async (req, res) => {
 
 app.post('/login', async (req, res) => {
     let details = await db.collection('loginuser').find().toArray()
+    let name = req.body.name
     let MobileNum = req.body.MobileNum
     let password = req.body.password
     // console.log(req.body)

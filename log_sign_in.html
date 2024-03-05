@@ -1,13 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Login Page</title>
 </head>
-<body>
-    <a href="login.html">login</a>
-     <br>
-    <a href="signup.html">signup</a>
+
+</html> 
+
+    <div class="container" id="container"> 
+        <div class="form-container sign-up">
+            <form class="form1">
+                <h1>Create Account</h1>
+                <div class="social-icons">
+                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your email for registeration</span>
+                <input type="text" id="name" placeholder="Name">
+                <input type="number" id="MobileNum" placeholder="MobileNum">
+                <input type="password" id="password" placeholder="Password">
+                <button>Sign Up</button>
+            </form>
+        </div>
+        <div class="form-container sign-in">
+            <form class="form2">
+                <h1>Sign In</h1>
+                <div class="social-icons">
+                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+                <!-- <span>or use your email password</span> -->
+                <input type="number" id="number" placeholder="number">
+                <input type="password" class="password" placeholder="Password">
+                <a href="#">Forget Your Password?</a>
+                <button>Sign In</button>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Welcome Back !</h1>
+                    <p>Enter your personal details to use all of site features</p>
+                    <button class="hidden" id="login">Sign In</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Welcome, Friend!</h1>
+                    <p>Enter your personal details to use all of site features</p>
+                    <button class="hidden" id="register">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <script src="script_log_sign_in.js"></script> -->
 </body>
+
+<script>
+
+const container = document.getElementById('container');
+const registerBtn = document.getElementById('register');
+const loginBtn = document.getElementById('login');
+
+registerBtn.addEventListener('click', () => {
+    container.classList.add("active");
+});
+
+loginBtn.addEventListener('click', () => {
+    container.classList.remove("active");
+});
+
+
+let form1 = document.querySelector('.form1')
+let name = document.querySelector('#name')
+let MobileNum = document.querySelector('#MobileNum')
+let password = document.querySelector('#password')
+let login = document.querySelector('button')
+
+
+form1.onsubmit = async (e) => {
+    e.preventDefault()
+
+    const data = await fetch('http://localhost:8052/login', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name:name.value,
+            MobileNum: MobileNum.value,
+            password: password.value
+        })
+    })
+    const result = await data.json()
+    console.log(result)
+
+    if (result === 'successful login') {
+        alert('login successful')
+        window.location.href = 'index.html'
+    } else {
+        alert('check mobile number & password')
+    }
+
+}
+
+let form2 = document.querySelector('.form2')
+let number = document.querySelector('#number')
+let pasword = document.querySelector('.password')
+
+
+
+        form2.onsubmit = async (e) => {
+            e.preventDefault()
+
+            const data = await fetch('http://localhost:8052/newentry', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+
+                    MobileNum:number.value,
+                    password: pasword.value
+
+                })
+            })
+            const result = await data.json()
+            console.log(result);
+
+            
+
+            if (result === 'Mobile Number already exists') {
+                alert('Mobile Number already exists. Please choose a different Mobile Number.');
+            } else {
+                alert('Registration successful.You can now visit us.');
+                window.location.href = 'userdata.html';
+            }
+
+        };
+
+
+
+</script>
+
+
 </html>
