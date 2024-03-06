@@ -29,7 +29,4 @@ li a:hover {
     background-color: #111;
   }
 
-li a:hover:not(.active) {
-    background-color: #111;
-}
 
