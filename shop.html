@@ -66,7 +66,13 @@
                     let image = document.createElement('img')
                     image.src = imgdata[i].url
 
-                    div.append(image)
+                    let addToCartButton = document.createElement('button')
+                    addToCartButton.textContent='Add to Cart'
+                    addToCartButton.onclick=()=>{
+                        console.log('product added',imgdata[i].url)
+                    }
+
+                    div.append(image,addToCartButton)
                     wrapper.append(div)
                 }
             }
