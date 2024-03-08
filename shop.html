@@ -17,6 +17,7 @@
                 <option value="Female">Female</option>
             </select>
             <button type="submit">search</button>
+            <button id="Cart">Cart</button>
         </div>
         <div id="wrapper"></div>
     </form>
@@ -26,6 +27,7 @@
         let gender = document.querySelector('#gender')
         let button = document.querySelector('button')
         let wrapper = document.querySelector('#wrapper')
+        let cartbttn = document.querySelector('#cart')
 
         const CloudName = 'da2oqj7qe'
         const malefolder = 'male'
@@ -63,7 +65,7 @@
                     let div = document.createElement('div')
                     div.className = 'products'
 
-                    let image = document.createElement('img')
+                    let image = document.createElement('img') 
                     image.src = imgdata[i].url
 
                     let addToCartButton = document.createElement('button')
