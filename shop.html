@@ -17,69 +17,83 @@
                 <option value="Female">Female</option>
             </select>
             <button type="submit">search</button>
-            <button id="Cart">Cart</button>
         </div>
         <div id="wrapper"></div>
     </form>
+    <button id="Cart">Cart</button>
 
     <script>
         let form = document.querySelector('form')
         let gender = document.querySelector('#gender')
         let button = document.querySelector('button')
         let wrapper = document.querySelector('#wrapper')
-        let cartbttn = document.querySelector('#cart')
+        let cartbutton = document.querySelector('#Cart')
 
         const CloudName = 'da2oqj7qe'
         const malefolder = 'male'
         const femalefolder = 'female'
 
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || []
+
         form.onsubmit = async (e) => {
-            e.preventDefault()
+            e.preventDefault();
 
             const data = await fetch('http://localhost:8052/shop', {
                 method: "POST",
                 headers: {
-                    "COntent-Type": "application/json"
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
                     selectedgender: gender.value
                 })
-            })
-            const result = await data.json()
-            console.log(result)
+            });
+            const result = await data.json();
+            console.log(result);
 
-            const imgdata = result.resources
-
+            const imgdata = result.resources;
 
             try {
-                showimg()
+                showimg();
             } catch (error) {
-                console.log('error fetching images :', error)
+                console.log('error fetching images :', error);
             }
-
 
             function showimg() {
-                console.log(imgdata)
+
+                wrapper.innerHTML = ''
+
+                console.log(imgdata);
+
                 for (let i = 0; i < imgdata.length; i++) {
+                    let div = document.createElement('div');
+                    div.className = 'products';
 
-                    let div = document.createElement('div')
-                    div.className = 'products'
+                    let image = document.createElement('img');
+                    image.src = imgdata[i].url;
 
-                    let image = document.createElement('img') 
-                    image.src = imgdata[i].url
+                    let addToCartButton = document.createElement('button');
+                    addToCartButton.textContent = 'Add to Cart';
 
-                    let addToCartButton = document.createElement('button')
-                    addToCartButton.textContent='Add to Cart'
                     addToCartButton.onclick=()=>{
-                        console.log('product added',imgdata[i].url)
-                    }
+                    console.log('product added',imgdata[i].url)
+                    cartItems.push(imgdata[i].url)
+                   
+                    localStorage.setItem('cartItems', JSON.stringify(cartItems))
 
-                    div.append(image,addToCartButton)
-                    wrapper.append(div)
+                }
+
+                    div.append(image, addToCartButton);
+                    wrapper.append(div);
                 }
             }
-        }
+        };
+
         
+
+        cartbutton.onclick = () => {
+            window.location.href = 'cart.html'
+        }
+
     </script>
 </body>
 

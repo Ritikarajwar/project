@@ -3,12 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="cart.css">
 </head>
 <body>
-    <h1>My cart</h1>
+    <h1>My Cart</h1>
+    <div id="cart-items"></div>
+
     <script>
-        
+   
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || []
+
+       
+        let cartContainer = document.getElementById('cart-items')
+        cartItems.forEach(item => {
+            let img = document.createElement('img')
+            img.src = item
+            cartContainer.appendChild(img)
+
+            
+ 
+    function removeFromCart(index) {
+        cartItems.splice(index, 1)
+        localStorage.setItem('cartItems', JSON.stringify(cartItems))
+        renderCart()
+    }
+
+   
+    function renderCart() {
+        let cartContainer = document.getElementById('cart-items')
+        cartContainer.innerHTML = ''
+        cartItems.forEach((item, index) => {
+            let cartItemDiv = document.createElement('div')
+
+            let img = document.createElement('img')
+            img.src = item
+
+            let deleteButton = document.createElement('button')
+            deleteButton.textContent = 'Remove'
+            deleteButton.onclick = () => removeFromCart(index)
+
+            cartItemDiv.appendChild(img)
+            cartItemDiv.appendChild(deleteButton)
+
+            cartContainer.appendChild(cartItemDiv)
+        })
+    }
+
+    renderCart()
+
+
+        })
     </script>
 </body>
 </html>
