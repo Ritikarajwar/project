@@ -30,7 +30,7 @@ form {
 
 button {
     padding: 10px 20px;
-    background-color: #4a38cd;
+    background-color: #58cd38;
     color: white;
     border: none;
     cursor: pointer;
@@ -76,7 +76,7 @@ button:hover {
     margin-top: 0; 
     margin-right: 0; 
     padding: 10px 20px;
-    background-color: #4a38cd;
+    background-color: #cd3844;
     color: white;
     border: none;
     cursor: pointer;
@@ -84,5 +84,21 @@ button:hover {
 }
 
 #Cart:hover {
+    background-color: #45a049;
+}
+
+#home {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    padding: 10px 20px;
+    background-color: #cd38b9;
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+#home:hover {
     background-color: #45a049;
 }

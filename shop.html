@@ -20,12 +20,14 @@
         </div>
         <div id="wrapper"></div>
     </form>
+    <button id="home">Home</button>
     <button id="Cart">Cart</button>
 
     <script>
         let form = document.querySelector('form')
         let gender = document.querySelector('#gender')
-        let button = document.querySelector('button')
+        // let button = document.querySelector('button')
+        let homebutton = document.querySelector('#home')
         let wrapper = document.querySelector('#wrapper')
         let cartbutton = document.querySelector('#Cart')
 
@@ -92,6 +94,10 @@
 
         cartbutton.onclick = () => {
             window.location.href = 'cart.html'
+        }
+
+        homebutton.onclick = () => {
+            window.location.href = 'index.html'
         }
 
     </script>
