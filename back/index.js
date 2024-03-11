@@ -1,8 +1,9 @@
 import express from "express";
 import cors from "cors";
 import connection, { dbName } from "./connection.js";
-import multer from "multer";
-import path from "path";
+// import multer from "multer";
+// import path from "path";
+import session from "express-session";
 import fileUpload from "express-fileupload";
 import { v2 as cloudinary } from 'cloudinary';
 
@@ -18,12 +19,18 @@ cloudinary.config({
 });
 
 
+app.use(session({
+    secret: 'yoursecretkey',
+    resave: false,
+    saveUninitialized: true
+}))
 app.use(fileUpload({ useTempFiles: true }))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json());
-app.use(cors({ origin: "http://127.0.0.1:5501" }));
+app.use(cors({ origin: "http://127.0.0.1:5501" }))
 // app.use('/uploads', express.static('uploads'))
 
+// const secretKey = "your_random_secret_key_here"
 
 
 app.options("/", (req, res) => {
@@ -101,7 +108,7 @@ app.post('/newentry', express.json(), async (req, res) => {
 
 app.post('/login', async (req, res) => {
     let details = await db.collection('loginuser').find().toArray()
-    let name = req.body.name
+    // let name = req.body.name
     let MobileNum = req.body.MobileNum
     let password = req.body.password
     // console.log(req.body)
@@ -115,10 +122,21 @@ app.post('/login', async (req, res) => {
         }
     }
     if (exist == false) {
+        req.session.isLoggedIn = true;
+        req.session.MobileNum = MobileNum;
         res.send(JSON.stringify('successful login'))
     }
     if (exist == true) {
         res.send(JSON.stringify('login failed'))
+    }
+})
+
+app.get('/profile',(req,res) => {
+    if (req.session.isLoggedIn) {
+        console.log('hiii')
+        res.redirect('/profile.html');
+    } else {
+        res.redirect('/login.html');
     }
 })
 
