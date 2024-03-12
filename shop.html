@@ -40,7 +40,12 @@
         form.onsubmit = async (e) => {
             e.preventDefault();
 
-            const data = await fetch('http://localhost:8052/shop', {
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+            if (isLoggedIn !== 'true') {
+                alert("sign or log in to enjoy services")
+                window.location.href = 'log_sign_in.html';
+            }else{
+                const data = await fetch('http://localhost:8052/shop', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -89,6 +94,9 @@
                 }
             }
         };
+            }
+
+          
 
         
 

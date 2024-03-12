@@ -133,7 +133,7 @@ app.post('/login', async (req, res) => {
 
 app.get('/profile',(req,res) => {
     if (req.session.isLoggedIn) {
-        console.log('hiii')
+        // console.log('hiii')
         res.redirect('/profile.html');
     } else {
         res.redirect('/login.html');
