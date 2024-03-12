@@ -21,12 +21,12 @@
         </nav>
     </header>
 
-    <div class="profile-container">
-        <div class="profile-info">
+    <div class="profile_container">
+        <div class="profile_info">
             <h2>Personal Information</h2>
-            <p><strong>Name:</strong> Ritika</p>
-            <p><strong>Email:</strong> ritikarajwar0@gmail.com</p>
-            <p><strong>Address:</strong> shankar nagar, jaipur</p>
+            <!-- <p id="name"><strong>Name:</strong> Ritika</p>
+            <p id="email"><strong>Email:</strong> ritikarajwar0@gmail.com</p>
+            <p id="address"><strong>Address:</strong> shankar nagar, jaipur</p> -->
         </div>
         <div class="orders">
             <h2>Order History</h2>
@@ -50,7 +50,45 @@
 
     <script>
 
-      
+        let profile_info = document.getElementById('profile_info')
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchdata()
+        })
+
+        async function fetchdata() {
+
+            const MobileNum = JSON.parse(localStorage.getItem('MobileNum'))
+            console.log(MobileNum)
+
+            const data = await fetch('http://localhost:8052/profile', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                MobileNum: MobileNum,
+              
+            })
+        })
+        const result = await data.json()
+        console.log(result)
+
+            try {
+                show_user_data()
+            } catch (error) {
+                console.log("error fetching user data :", error)
+            }
+
+            function show_user_data() {
+                profile_info = ''
+
+
+                
+            }
+
+
+        }
 
 
 

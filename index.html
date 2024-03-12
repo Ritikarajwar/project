@@ -21,31 +21,23 @@
 </body>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        let profile = document.getElementById('profile');
+        let profile = document.getElementById('profile')
         profile.addEventListener('click', () => {
-            fetchData();
-            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+         
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn')
             if (isLoggedIn !== 'true') {
-                window.location.href = 'log_sign_in.html';
+                // console.log('hiii')
+                window.location.href = 'log_sign_in.html'
             }else{
                 window.location.href = 'profile.html'
             }
-        });
+            
+        })
         
-    });
+    })
 
 
-    async function fetchData() {
-        const response = await fetch('http://localhost:8052/profile', {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
-
-        
-    }
-
+    
 
 </script>
 

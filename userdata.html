@@ -21,6 +21,9 @@
         <label for="dob">Date of Birth:</label>
         <input type="date" id="dob" name="dob">
         <br>
+        <label for="">Mobile number</label>
+        <input type="number" id="number">
+        <br>
         <label for="">State</label>
         <input type="text" id="state">
         <br>
@@ -42,6 +45,7 @@
         let name = document.querySelector('#name')
         let gender = document.querySelector('#gender')
         let dob = document.querySelector('#dob')
+        let number = document.querySelector('#number')
         let state =document.querySelector('#state')
         let city = document.querySelector('#city')
         let address = document.querySelector('#address')
@@ -50,6 +54,8 @@
 
         form.onsubmit = async (e) => {
             e.preventDefault()
+
+            // localStorage.setItem('number',JSON.stringify(number))
 
             const data = await fetch('http://localhost:8052/userdata', {
                 method: "POST",
@@ -60,6 +66,7 @@
                     name:name.value,
                     gender:gender.value,
                     dob:dob.value,
+                    number:number.value,
                     state:state.value,
                     city:city.value,
                     address:address.value,

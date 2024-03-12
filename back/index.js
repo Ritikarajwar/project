@@ -131,18 +131,34 @@ app.post('/login', async (req, res) => {
     }
 })
 
-app.get('/profile',(req,res) => {
-    if (req.session.isLoggedIn) {
-        // console.log('hiii')
-        res.redirect('/profile.html');
+
+app.post('/profile', async (req, res) => {
+    console.log(req.body.MobileNum)
+    req.session.isLoggedIn = true
+
+    if (req.session.isLoggedIn && req.body.MobileNum) {
+        
+        // let mobileNum = req.session.MobileNum;
+        console.log('Logged in Mobile Number:', req.body.MobileNum);
+
+        
+        let userDetails = await db.collection('userdata').findOne({ number: req.body.MobileNum });
+        console.log('User Details:', userDetails);
+
+        res.send(JSON.stringify(userDetails));
     } else {
-        res.redirect('/login.html');
+        
+        res.send(JSON.stringify('Unauthorized'));
     }
-})
+ 
+
+});
+
+
 
 app.post('/userdata', async (req, res) => {
-    let { name, gender, dob, state, city, address, pincode } = req.body
-    let data = await db.collection('userdata').insertOne({ name, gender, dob, state, city, address, pincode })
+    let { name, gender, dob, number, state, city, address, pincode } = req.body
+    let data = await db.collection('userdata').insertOne({ name, gender, dob, number, state, city, address, pincode })
     console.log(data)
     res.send(JSON.stringify('Data Saved'))
 })

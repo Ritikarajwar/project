@@ -88,9 +88,12 @@
     let number = document.querySelector('#number')
     let pasword = document.querySelector('.password')
 
-
+    
     form2.onsubmit = async (e) => {
         e.preventDefault()
+        
+        let mobileNumValue = MobileNum.value
+        localStorage.setItem('MobileNum', JSON.stringify(mobileNumValue))
 
         const data = await fetch('http://localhost:8052/newentry', {
             method: "POST",
@@ -121,6 +124,9 @@
 
     form1.onsubmit = async (e) => {
         e.preventDefault()
+
+        let mobileNumValue = number.value
+        localStorage.setItem('MobileNum', JSON.stringify(mobileNumValue))
 
         const data = await fetch('http://localhost:8052/login', {
             method: "POST",

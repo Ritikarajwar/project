@@ -26,7 +26,7 @@ nav ul li.active a {
     color: #ff6600;
 }
 
-.profile-container {
+.profile_container {
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
@@ -34,7 +34,7 @@ nav ul li.active a {
     border-radius: 5px;
 }
 
-.profile-info {
+.profile_info {
     margin-bottom: 20px;
 }
 
