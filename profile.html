@@ -24,9 +24,14 @@
     <div class="profile_container">
         <div class="profile_info">
             <h2>Personal Information</h2>
-            <!-- <p id="name"><strong>Name:</strong> Ritika</p>
-            <p id="email"><strong>Email:</strong> ritikarajwar0@gmail.com</p>
-            <p id="address"><strong>Address:</strong> shankar nagar, jaipur</p> -->
+            <p><strong>Name:</strong> <span id="name"></span></p>
+            <p><strong>Gender:</strong> <span id="gender"></span></p>
+            <p><strong>Date of Birth:</strong> <span id="dob"></span></p>
+            <p><strong>Mobile Number:</strong> <span id="number"></span></p>
+            <p><strong>Address:</strong> <span id="address"></span></p>
+            <p><strong>Pincode:</strong> <span id="pincode"></span></p>
+            <p><strong>City:</strong> <span id="city"></span></p>
+            <p><strong>State:</strong> <span id="state"></span></p>
         </div>
         <div class="orders">
             <h2>Order History</h2>
@@ -50,46 +55,46 @@
 
     <script>
 
-        let profile_info = document.getElementById('profile_info')
+document.addEventListener('DOMContentLoaded', () => {
+            fetchData();
+        });
 
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchdata()
-        })
-
-        async function fetchdata() {
-
-            const MobileNum = JSON.parse(localStorage.getItem('MobileNum'))
-            console.log(MobileNum)
-
-            const data = await fetch('http://localhost:8052/profile', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                MobileNum: MobileNum,
-              
-            })
-        })
-        const result = await data.json()
-        console.log(result)
-
+        async function fetchData() {
             try {
-                show_user_data()
-            } catch (error) {
-                console.log("error fetching user data :", error)
-            }
-
-            function show_user_data() {
-                profile_info = ''
-
+                const MobileNum = JSON.parse(localStorage.getItem('MobileNum'));
+                const data = await fetch('http://localhost:8052/profile', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ MobileNum: MobileNum })
+                });
+                const result = await data.json();
+                console.log(result);
 
                 
+                document.getElementById('name').textContent = result.name;
+                document.getElementById('gender').textContent = result.gender;
+                document.getElementById('dob').textContent = result.dob;
+                document.getElementById('number').textContent = result.number;
+                document.getElementById('state').textContent = result.state;
+                document.getElementById('city').textContent = result.city;
+                document.getElementById('address').textContent = result.address;
+                document.getElementById('pincode').textContent = result.pincode;
+
+                
+                const orderTable = document.getElementById('order_table');
+                result.orders.forEach(order => {
+                    const row = orderTable.insertRow(-1);
+                    row.insertCell(0).textContent = order.orderID;
+                    row.insertCell(1).textContent = order.date;
+                    row.insertCell(2).textContent = order.total;
+                    row.insertCell(3).textContent = order.status;
+                });
+            } catch (error) {
+                console.error("Error fetching user data:", error);
             }
-
-
         }
-
 
 
 
