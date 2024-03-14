@@ -75,16 +75,23 @@ app.post('/shop', express.json(), (req, res) => {
             if (error) {
                 console.error('Error fetching images:', error);
             } else {
-                res.send(result);
+                res.send(result)
             }
         })
     }
 
 })
 
+app.post('/cartitems',express.json(), async(req,res) => {
+    let {MobileNum, imgsrc} = req.body
+    console.log(req.body)
+    let detail = await db.collection('cartitem').insertOne({ MobileNum, imgsrc })
+    res.send(JSON.stringify('data stored'))
+
+})
 
 app.post('/newentry', express.json(), async (req, res) => {
-    let { MobileNum, password } = req.body;
+    let { MobileNum, password } = req.body
     // console.log(req.body)
     
     let data = await db.collection('loginuser').find().toArray();

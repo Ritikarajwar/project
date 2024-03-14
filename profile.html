@@ -56,43 +56,43 @@
     <script>
 
 document.addEventListener('DOMContentLoaded', () => {
-            fetchData();
-        });
+            fetchData()
+        })
 
         async function fetchData() {
             try {
-                const MobileNum = JSON.parse(localStorage.getItem('MobileNum'));
+                const MobileNum = JSON.parse(localStorage.getItem('MobileNum'))
                 const data = await fetch('http://localhost:8052/profile', {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({ MobileNum: MobileNum })
-                });
-                const result = await data.json();
-                console.log(result);
+                })
+                const result = await data.json()
+                console.log(result)
 
                 
-                document.getElementById('name').textContent = result.name;
-                document.getElementById('gender').textContent = result.gender;
+                document.getElementById('name').textContent = result.name
+                document.getElementById('gender').textContent = result.gender
                 document.getElementById('dob').textContent = result.dob;
-                document.getElementById('number').textContent = result.number;
-                document.getElementById('state').textContent = result.state;
-                document.getElementById('city').textContent = result.city;
-                document.getElementById('address').textContent = result.address;
-                document.getElementById('pincode').textContent = result.pincode;
+                document.getElementById('number').textContent = result.number
+                document.getElementById('state').textContent = result.state
+                document.getElementById('city').textContent = result.city
+                document.getElementById('address').textContent = result.address
+                document.getElementById('pincode').textContent = result.pincode
 
                 
-                const orderTable = document.getElementById('order_table');
-                result.orders.forEach(order => {
-                    const row = orderTable.insertRow(-1);
-                    row.insertCell(0).textContent = order.orderID;
-                    row.insertCell(1).textContent = order.date;
-                    row.insertCell(2).textContent = order.total;
-                    row.insertCell(3).textContent = order.status;
-                });
+                // const orderTable = document.getElementById('order_table');
+                // result.orders.forEach(order => {
+                //     const row = orderTable.insertRow(-1);
+                //     row.insertCell(0).textContent = order.orderID;
+                //     row.insertCell(1).textContent = order.date;
+                //     row.insertCell(2).textContent = order.total;
+                //     row.insertCell(3).textContent = order.status;
+                // });
             } catch (error) {
-                console.error("Error fetching user data:", error);
+                console.error("Error fetching user data:", error)
             }
         }
 

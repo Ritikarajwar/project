@@ -36,6 +36,7 @@
         const femalefolder = 'female'
 
         let cartItems = JSON.parse(localStorage.getItem('cartItems')) || []
+        
 
         form.onsubmit = async (e) => {
             e.preventDefault()
@@ -81,8 +82,24 @@
                     let addToCartButton = document.createElement('button')
                     addToCartButton.textContent = 'Add to Cart'
 
-                    addToCartButton.onclick=()=>{
-                    console.log('product added',imgdata[i].url)
+                    addToCartButton.onclick= async()=>{
+                        const MobileNum = JSON.parse(localStorage.getItem('MobileNum'))
+                        console.log('product added',imgdata[i].url)
+                        console.log(MobileNum)
+                    
+                    const items = await fetch('http://localhost:8052/cartitems',{
+                        method:"POST",
+                        headers: {
+                            "Content-Type":"application/json"
+                        },
+                        body: JSON.stringify({
+                            imgsrc:imgdata[i].url,
+                            MobileNum: MobileNum
+                        })
+                    })
+                    const output = await items.json()
+                    console.log(output) 
+
                     cartItems.push(imgdata[i].url)
                    
                     localStorage.setItem('cartItems', JSON.stringify(cartItems))
