@@ -87,17 +87,17 @@
                         console.log('product added',imgdata[i].url)
                         console.log(MobileNum)
                     
-                    const items = await fetch('http://localhost:8052/cartitems',{
-                        method:"POST",
-                        headers: {
-                            "Content-Type":"application/json"
-                        },
-                        body: JSON.stringify({
-                            imgsrc:imgdata[i].url,
-                            MobileNum: MobileNum
-                        })
-                    })
-                    const output = await items.json()
+                    // const items = await fetch('http://localhost:8052/cartitems',{
+                    //     method:"POST",
+                    //     headers: {
+                    //         "Content-Type":"application/json"
+                    //     },
+                    //     body: JSON.stringify({
+                    //         imgsrc:imgdata[i].url,
+                    //         MobileNum: MobileNum
+                    //     })
+                    // })
+                    // const output = await items.json()
                     console.log(output) 
 
                     cartItems.push(imgdata[i].url)

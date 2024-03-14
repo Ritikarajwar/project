@@ -54,7 +54,7 @@ app.post('/adddata', express.json(), (req, res) => {
     });
 });
 
-app.post('/shop', express.json(), (req, res) => {
+app.post('/shop', express.json(), async (req, res) => {
     let selectedgender = req.body.selectedgender;
     console.log(selectedgender)
 
@@ -82,13 +82,15 @@ app.post('/shop', express.json(), (req, res) => {
 
 })
 
-app.post('/cartitems',express.json(), async(req,res) => {
-    let {MobileNum, imgsrc} = req.body
-    console.log(req.body)
-    let detail = await db.collection('cartitem').insertOne({ MobileNum, imgsrc })
-    res.send(JSON.stringify('data stored'))
+// app.post('/cartitems',express.json(), async(req,res) => {
+//     let {MobileNum, imgsrc} = req.body
+//     // console.log(req.body)
+//     let detail = await db.collection('cartitem').insertOne({ MobileNum, imgsrc })
+//     res.send(JSON.stringify('data stored'))
 
-})
+// })
+
+
 
 app.post('/newentry', express.json(), async (req, res) => {
     let { MobileNum, password } = req.body
