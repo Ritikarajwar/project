@@ -39,20 +39,20 @@ app.options("/", (req, res) => {
 })
 
 
-app.post('/adddata', express.json(), (req, res) => {
-    let file = req.files.image;
-    console.log(file)
+// app.post('/adddata', express.json(), (req, res) => {
+//     let file = req.files.image;
+//     console.log(file)
 
-    cloudinary.uploader.upload(file.tempFilePath, (err, result) => {
-        if (err) {
-            console.error("this is error:" + err);
-            // res.status(500).send(JSON.stringify('Error uploading to Cloudinary'));
-        } else {
-            console.log(result);
-            // res.status(200).send(JSON.stringify('File uploaded to Cloudinary'));
-        }
-    });
-});
+//     cloudinary.uploader.upload(file.tempFilePath, (err, result) => {
+//         if (err) {
+//             console.error("this is error:" + err);
+//             // res.status(500).send(JSON.stringify('Error uploading to Cloudinary'));
+//         } else {
+//             console.log(result);
+//             // res.status(200).send(JSON.stringify('File uploaded to Cloudinary'));
+//         }
+//     });
+// });
 
 app.post('/shop', express.json(), async (req, res) => {
     let selectedgender = req.body.selectedgender;
@@ -82,21 +82,26 @@ app.post('/shop', express.json(), async (req, res) => {
 
 })
 
-// app.post('/cartitems',express.json(), async(req,res) => {
-//     let {MobileNum, imgsrc} = req.body
-//     // console.log(req.body)
-//     let detail = await db.collection('cartitem').insertOne({ MobileNum, imgsrc })
-//     res.send(JSON.stringify('data stored'))
+app.post('/cartitems',express.json(), async(req,res) => {
+    let {MobileNum, imgsrc} = req.body
+    // console.log(req.body)
+    let detail = await db.collection('cartitem').insertOne({ MobileNum, imgsrc })
+    res.send(JSON.stringify('data stored'))
 
-// })
+})
 
-
+app.post('/cartitem',express.json(),async(req,res) => {
+    // console.log(req.body)
+    let details = await db.collection('cartitem').find({ MobileNum: req.body.MobileNum }).toArray()
+    // console.log(details)
+    send(JSON.stringify(details))
+})
 
 app.post('/newentry', express.json(), async (req, res) => {
     let { MobileNum, password } = req.body
     // console.log(req.body)
     
-    let data = await db.collection('loginuser').find().toArray();
+    let data = await db.collection('loginuser').find().toArray()
     let exist = false;
 
     for (let i = 0; i < data.length; i++) {

@@ -25,6 +25,7 @@
         profile.addEventListener('click', () => {
          
             const isLoggedIn = sessionStorage.getItem('isLoggedIn')
+            console.log(isLoggedIn)
             if (isLoggedIn !== 'true') {
                 // console.log('hiii')
                 window.location.href = 'log_sign_in.html'

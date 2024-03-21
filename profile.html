@@ -33,7 +33,7 @@
             <p><strong>City:</strong> <span id="city"></span></p>
             <p><strong>State:</strong> <span id="state"></span></p>
         </div>
-        <div class="orders">
+        <!-- <div class="orders">
             <h2>Order History</h2>
             <table>
                 <tr>
@@ -49,13 +49,13 @@
                     <td>Delivered</td>
                 </tr>
 
-            </table>
-        </div>
+            </table> -->
+    </div>
     </div>
 
     <script>
 
-document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', () => {
             fetchData()
         })
 
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const result = await data.json()
                 console.log(result)
 
-                
+
                 document.getElementById('name').textContent = result.name
                 document.getElementById('gender').textContent = result.gender
                 document.getElementById('dob').textContent = result.dob;
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('address').textContent = result.address
                 document.getElementById('pincode').textContent = result.pincode
 
-                
+
                 // const orderTable = document.getElementById('order_table');
                 // result.orders.forEach(order => {
                 //     const row = orderTable.insertRow(-1);
