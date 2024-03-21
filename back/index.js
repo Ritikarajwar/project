@@ -94,7 +94,7 @@ app.post('/cartitem',express.json(),async(req,res) => {
     // console.log(req.body)
     let details = await db.collection('cartitem').find({ MobileNum: req.body.MobileNum }).toArray()
     // console.log(details)
-    send(JSON.stringify(details))
+    res.send(JSON.stringify(details))
 })
 
 app.post('/newentry', express.json(), async (req, res) => {

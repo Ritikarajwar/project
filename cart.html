@@ -11,9 +11,10 @@
 <body>
     <h1>My Cart</h1>
     <div id="cart-items"></div>
-
+    <div id="wrapper" ></div>
     <script>
 
+        let wrapper = document.getElementById('wrapper')
         // let cartItems = JSqON.parse(localStorage.getItem('cartItems')) || []
 
         document.addEventListener('DOMContentLoaded',()=>{
@@ -33,11 +34,26 @@
                 const result = await data.json()
                 console.log(result)
 
+                showimg(result)
+
             }catch (error){
                 console.log("Error fetching cart data",error)
             }
         }
 
+        function showimg(result){
+            wrapper.innerHTML = ''
+            for (let i =0; i<result.length; i++){
+                let div = document.createElement('div')
+                div.className = 'product'
+
+                let image = document.createElement('img')
+                image.src = result[i].imgsrc
+                
+                div.append(image)
+                wrapper.append(div)
+            }
+        }
 
         // let cartContainer = document.getElementById('cart-items')
         // cartItems.forEach(item => {
