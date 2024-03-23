@@ -80,9 +80,7 @@
 
         form1.onsubmit = async (e) => {
             e.preventDefault()
-            // e.preventDefault()
-            // console.log(image.files[0])
-
+            
             const formData = new FormData();
             // formData.append('name', name.value)
             formData.append('gender', gender.value)
@@ -93,19 +91,8 @@
 
             const data = await fetch('http://localhost:8052/adddata', {
                 method: "POST",
-                // headers: {
-                //     "Content-Type": "application/json"
-                // },
                 body: formData
-                //  body:JSON.stringify({
-                //     name:name.value,
-                //     gender:gender.value,
-                //     ptype:ptype.value,
-                //     ctype:ctype.value,
-                //     atype:atype.value,
-                //     photos:image.files[0]
-
-                // })
+                
             })
             const result = await data.json()
             console.log(result);
